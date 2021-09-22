@@ -25,7 +25,7 @@
                     <div class="others" id="current-weather-items">
                         <div class="weather-item">
                             <p>Humidity</p>
-                            <p>60%</p>
+                            <p id="humidity">60%</p>
                         </div>
                         <div class="weather-item">
                             <p>Pressure</p>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="weather-item">
                             <p>Wind Speed</p>
-                            <p>7.72</p>
+                            <p id ="wind">7.72</p>
                         </div>
                         <div class="weather-item">
                             <p>Sunrise</p>
@@ -52,15 +52,15 @@
             </div>
             <div class="searchbox">
                 <input type="text" class="find" placeholder="Search the city name">
-                <button><i class="fas fa-search"></i></button>
+                <button id="search"><i class="fas fa-search"></i></button>
             </div>
         </div>
         <div class="future-forecast">
             <div class="today" id="current-temp">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" style="width: 200px; height: 200px;"alt="weather icon" class="w-icon">
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" style="width: 200px; height: 200px;"alt="weather icon" class="w-icon" id ="icon">
                 <div class="other">
                     <div class="day">Monday</div>
-                    <div class="temp">Night - 25.6&#176; C</div>
+                    <div class="temp">Night - <span id="temp">25.6</span>&#176; C</div>
                     <div class="temp">Day - 35.6&#176; C</div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
             </div>
         </div>
     </div>
-    <script src="assets/scripts/main.js"></script>
+    <script src="assets/scripts/main.js" defer></script>
 </body>
 
 </html>
