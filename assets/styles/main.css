@@ -7,6 +7,7 @@
 }
 body {
     background-image: url('https://source.unsplash.com/1920x1080/?paris');
+    background-color: rgba(var(--color-highlight), 0);
     font-family: 'Poppins', sans-serif;
 }
 .main{
@@ -24,6 +25,13 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 70px;
+    width: 100%;
+}
+.info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
     width: 100%;
 }
 .current-info{
@@ -52,12 +60,22 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.place-info{
+    text-align: end;
+}
+.place-info .country{
+    align-self: center;
+    font-size: 30px;
+    font-weight: 100;
+}
+.place-info .location{
+    font-size: 12px;
+    font-weight: 700;
+}
 .searchbox{
     display: flex;
     justify-content: center;
     align-self: center;
-    background-color: rgba(24,24,27,0.6);
-    border: 1px solid #eee;
     color: white;
     padding: 0.5em;
     border-radius: 20px;
@@ -68,8 +86,8 @@ body {
     border: none;
     outline: none;
     padding: 0.4em 1em;
-    border-radius: 24px;
-    background-color: rgba(24,24,27,0.2);
+    border-radius: 25px 0px 0px 25px;
+    background-color: rgba(24,24,27,0.6);
     color: white;
     font-size: 100%;
 }
@@ -79,7 +97,8 @@ body {
     height: 44px;
     width: 44px;
     outline: none;
-    background-color: rgba(24,24,27,0.2);
+    border-radius:  0px 25px 25px 0px;
+    background-color: rgba(24,24,27,0.6);
     color: white;
     cursor: pointer;
 }
@@ -174,17 +193,27 @@ button:hover {
     .current-info .others .weather-item{
         font-size: 14px;
     }
+    .place-info{
+        margin-top: 15px;
+    }
+    .place-info .country{
+        font-size: 20px;
+    }
     .searchbox{
         align-self: start;
         min-width: 182.17px;
     }
     .searchbox input{
-        padding: 0.2em 0;
+        padding: 0.3em 0;
         font-size: 70%;
+        border: 1px solid white;
+        border-right: none;
     }
     .searchbox button {
-        height: 33px;
-        width: 33px;
+        height: 37px;
+        width: 37px;
+        border: 1px solid white;
+        border-left: none;
     }
 }
 
