@@ -59,6 +59,11 @@ body {
 .current-info .others .weather-item{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+.current-info .others .weather-item img{
+    width: 60px;
+    height: 60px;
 }
 .place-info{
     text-align: end;
@@ -192,6 +197,10 @@ button:hover {
     }
     .current-info .others .weather-item{
         font-size: 14px;
+    }
+    .current-info .others .weather-item img{
+        width: 35px;
+        height: 35px;
     }
     .place-info{
         margin-top: 15px;
