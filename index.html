@@ -59,8 +59,19 @@
                 </div>
             </div>
             <div class="searchbox">
-                <input type="text" class="find" placeholder="   Search the city name">
-                <button id="search"><i class="fas fa-search"></i></button>
+                <div class="srch">
+                    <input type="text" class="find" onfocus="inpFocus()" onfocusout="inponFocus()" placeholder="   Search the city name">
+                    <button id="search"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="result" id="result">
+                    <ul id ="rlist">
+                        <li>İstanbul</li>
+                        <li>İzmir</li>
+                        <li>Kahramanmaraş</li>
+                        <li>Karabük</li>
+                        <li style="border-radius: 0px 0px 25px 25px;" id="lastli">Bayrampaşa</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="future-forecast">
@@ -114,6 +125,7 @@
         </div>
     </div>
     <script src="assets/scripts/main.js" defer></script>
+    <script src="assets/scripts/focus.js" defer></script>
 </body>
 
 </html>

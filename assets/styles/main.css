@@ -80,6 +80,7 @@ body {
 }
 .searchbox{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-self: center;
     color: white;
@@ -87,9 +88,14 @@ body {
     border-radius: 20px;
     width: 20%;
     min-width: 300px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
-.searchbox input{
+.srch{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.searchbox .srch input{
     border: none;
     outline: none;
     padding: 0.4em 1em;
@@ -98,8 +104,7 @@ body {
     color: white;
     font-size: 100%;
 }
-.searchbox button {
-    border-radius: 50%;
+.searchbox .srch button {
     border: none;
     height: 44px;
     width: 44px;
@@ -109,8 +114,34 @@ body {
     color: white;
     cursor: pointer;
 }
-button:hover {
+.srch button:hover {
     background: #7c7c7c6b;
+}
+.srch input:focus + button{
+    background-color: rgba(24,24,27);
+    border-radius: 0px 25px 0px 0px;
+}
+.srch input:focus{
+    background-color: rgba(24,24,27);
+    border-radius: 25px 0px 0px 0px;
+}  
+.result{
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    visibility: hidden;
+}
+.result li:hover {
+    background: #7c7c7c6b;
+}
+#rlist{
+    list-style-type: none;
+    width: 271px;
+    background-color: rgba(24,24,27);
+    border-radius:  0px 0px 25px 25px;
+}
+#rlist li{
+    padding: 0.4em 1em;
 }
 .future-forecast{
     background-color: rgba(24,24,27,0.8);
@@ -179,16 +210,29 @@ button:hover {
         justify-content: flex-start;
         align-self: flex-start;
     }
-    .searchbox input{
+    .srch{
+        justify-content: flex-start;
+        align-self: flex-start;
+    }
+    .result{
+        width: 189px;
+    }
+    .result ul{
+        border: 1px solid white;
+        border-top: none;
+    }
+    .searchbox .srch input{
         width: 145px;
         padding: 0.3em 0;
         font-size: 100%;
         border: 1px solid white;
         border-right: none;
+        border-bottom: none;
     }
-    .searchbox button {
+    .searchbox .srch button {
         border: 1px solid white;
         border-left: none;
+        border-bottom: none;
     }
 }
 @media only screen and (max-width:730px){
@@ -236,21 +280,33 @@ button:hover {
         align-self: start;
         min-width: 182.17px;
     }
-    .searchbox input{
+    .searchbox .srch input{
         padding: 0.3em 0;
         font-size: 100%;
         width: 110px;
         border: 1px solid white;
         border-right: none;
+        border-bottom: none;
     }
     .searchbox ::placeholder{
         font-size: 13px;
     }
-    .searchbox button {
+    .searchbox .srch button {
         height: 37px;
         width: 37px;
         border: 1px solid white;
         border-left: none;
+        border-bottom: none;
+    }
+    .result{
+        justify-content: flex-start;
+    }
+    .result ul{
+        border: 1px solid white;
+        border-top: none;
+    }
+    #rlist{
+        width: 147px;
     }
 }
 @media only screen and (min-height: 750px){
