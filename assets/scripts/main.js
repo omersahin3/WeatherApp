@@ -1,8 +1,7 @@
+var first = true;
 let weather = {
-    
     apiKey: "49cc8c821cd2aff9af04c9f98c36eb74",
     fetchWeather: function (city,type) {
-        const obj = {};
         fetch(
             "https://api.openweathermap.org/data/2.5/" + type +"?q=" +
             city +
@@ -38,7 +37,10 @@ let weather = {
         document.getElementById('wind').innerText = speed + " km/h";
         document.body.style.backgroundImage =
         "url('https://source.unsplash.com/1920x1080/?" + name + "')";
-
+        if(first == true) // default background
+        {
+            document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1565036045177-025ab34fb5b3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8SXN0YW5idWx8fHx8fHwxNjMyNDY4MzMx&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920')";
+        }
         var zone = (timezone - 10800)/3600;
         console.log(zone);
 
@@ -68,21 +70,15 @@ let weather = {
         ${(hour3 + zone) + ":" + minutes3}
         <span id="am-pm">${ampm3}</span>
         `
-
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);
-        
     },
     displayForecast: function(data) {
-        const{ name } = data.city;
         const{ icon } = data.list[0].weather[0];
         const{ temp } = data.list[0].main;
         console.log(name,icon,temp);
-        document.getElementById('country').textContent = name;
         // document.getElementById('icon').src = "https://openweathermap.org/img/wn/" + icon + ".png";
         // document.getElementById('temp').textContent = temp;
-        document.body.style.backgroundImage =
-        "url('https://source.unsplash.com/1920x1080/?" + name + "')";
         let otherDayForcast = ''
         for(i=0; i<40; i+=8)
         {
@@ -115,6 +111,7 @@ let weather = {
                 </div>`
             }
             document.getElementById('weather-forecast').innerHTML = otherDayForcast;
+            document.querySelector('.main').style.visibility = "visible"; // ilk başta hidden olan şeyi visible 
         }
     },
     search: function () {
@@ -122,6 +119,7 @@ let weather = {
         "forecast");
         this.fetchWeather(document.querySelector('.find').value,
         "weather");
+        first = false;
     },
 };
 document.querySelector('#search').addEventListener("click", function () {
@@ -132,4 +130,5 @@ document.querySelector('.find').addEventListener("keyup", function(event) {
         weather.search();
     }
 })
-
+weather.fetchWeather("istanbul","forecast");
+weather.fetchWeather("istanbul","weather");

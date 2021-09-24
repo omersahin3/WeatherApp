@@ -19,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    visibility: hidden;
 }
 .content{
     display: flex;
@@ -217,7 +218,7 @@ button:hover {
         padding: 12px;
     }
     .current-info .others .weather-item{
-        font-size: 14px;
+        font-size: 13px;
     }
     .current-info .others .weather-item img{
         width: 35px;
