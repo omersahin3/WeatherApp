@@ -38,7 +38,7 @@ let weather = {
         // console.log(name,icon,description,temp,humidity,speed);
         document.getElementById('country').textContent = name;
         document.getElementById('location').textContent = (String(lat).slice(0,6)) + 'N ' + (String(lon).slice(0,6)) +'E';
-        document.getElementById('icon').src = "https://openweathermap.org/img/wn/" + icon + ".png";
+        document.getElementById('icon').src = "https://openweathermap.org/img/wn//" + icon + ".png";
         document.getElementById('description').textContent = description;
         document.getElementById('temp').textContent = temp;
         document.getElementById('humidity').textContent = humidity + "%";
@@ -52,39 +52,25 @@ let weather = {
         }
         var zone = (timezone - 10800)/3600;
 
-        var utcSeconds = sunrise;
         var r = new Date(0); 
-        r.setUTCSeconds(utcSeconds);
-        const hour = r.getHours();
-        const minutes = r.getMinutes();
-        const ampm = hour >=12 ? 'pm' : 'am';
-        document.getElementById('sunrise').textContent = (hour + zone) + ":" + minutes + " " + ampm;
+        var s = new Date(0); //ilk utc r değerine ekliyor
 
-        var utcSeconds2 = sunset;
-        var s = new Date(0); 
-        s.setUTCSeconds(utcSeconds2);
-        const hour2 = s.getHours();
-        const minutes2 = s.getMinutes();
-        const ampm2 = hour2 >=12 ? 'pm' : 'am';
-        document.getElementById('sunset').textContent = (hour2 + zone) + ":" + minutes2 + " " + ampm2;
+        document.getElementById('sunrise').textContent = this.utc(r, sunrise, zone);
+        document.getElementById('sunset').textContent = this.utc(s, sunset, zone);
 
         var date = new Date();
-        const hour3 = date.getHours();
-        const minutes3 = date.getMinutes(); 
-        const ampm3 = hour3 >=12 ? 'PM' : 'AM';
-        // document.querySelector('#time').textContent = hour3 + ":" + minutes3 + " " + ampm3;
+        let hour3 = date.getHours();
+        let minutes3 = date.getMinutes();
 
-        document.querySelector('#time').innerHTML =`
-        ${(hour3 + zone) + ":" + minutes3}
-        <span id="am-pm">${ampm3}</span>
-        `
+        this.mycalc(minutes3,hour3,zone);
+
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);
     },
     displayForecast: function(data) {
         const{ icon } = data.list[0].weather[0];
         const{ temp } = data.list[0].main;
-        console.log(icon,temp);
+        // console.log(icon,temp);
         let otherDayForcast = ''
         for(i=0; i<40; i+=8)
         {
@@ -101,8 +87,8 @@ let weather = {
                 `<img src="http://openweathermap.org/img/wn//${icon}@4x.png" alt="weather icon" class="w-icon">
                 <div class="other">
                     <div class="day">${d}</div>
-                    <div class="temp">Night - ${temp}&#176;C</div>
-                    <div class="temp">Day - ${temp}&#176;C</div>
+                    <div class="temp">Night - ${String(temp).slice(0,4)}&#176;C</div>
+                    <div class="temp">Day - ${String(temp).slice(0,4)}&#176;C</div>
                 </div>`
             }
             else 
@@ -111,8 +97,8 @@ let weather = {
                 `<div class="weather-forecast-item">
                     <div class="day">${d}</div>
                     <img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon" class="w-icon">
-                    <div class="temp">Night - ${temp}&#176;C</div>
-                    <div class="temp">Day - ${temp}&#176;C</div>
+                    <div class="temp">Night - ${String(temp).slice(0,4)}&#176;C</div>
+                    <div class="temp">Day - ${String(temp).slice(0,4)}&#176;C</div>
                 </div>`
             }
             document.getElementById('weather-forecast').innerHTML = otherDayForcast;
@@ -120,18 +106,18 @@ let weather = {
         }
     },
     displayCountry: function(data,query){
-        const querylist = [];
         const q = String(query).toLowerCase();
+        const querylist = [];
 
         console.log(data[227]['states']);
         const states = data[227]['states'];
-        let querylistHtml = '';
 
+        let querylistHtml = '';
         for(let i = 0; i< states.length ; i++){
             const cities = states[i]['cities'];
             for(let j = 0; j< cities.length ; j++){
                 const name = String(cities[j]['name']).toLowerCase();
-                if(name.includes(q)) {
+                if((name.slice(0,(query.length))).includes(q)) {
                     querylist.push(name);
                     querylistHtml += `<li onmousedown="weather.search('${name}')" class="queryLi" value="${name}">${name}</li>`;
                     document.getElementById('rlist').innerHTML = querylistHtml;
@@ -150,6 +136,38 @@ let weather = {
         this.fetchWeather(value,
         "weather");
         first = false;
+        document.querySelector('.find').value=value;// açılır listeden gelen verilerin yazılmasını sağlıyor.
+    },
+    mycalc: function(minute, hour, zone) { // time
+        if ( minute <= 9) // not 9 we want 09
+        {
+            minute = "0" + minute;
+        }
+        let nhour = Math.abs(hour + zone);
+        if (nhour >= 12)
+        {
+            nhour = nhour%12;
+        }
+        const ampm = (hour + zone) >=12 ? 'PM' : 'AM' && (hour + zone) < 0 ? 'PM' : 'AM';
+        document.querySelector('#time').innerHTML =`
+        ${nhour + ":" + minute}
+        <span id="am-pm">${ampm}</span>`
+    },
+    utc: function(r, utcSeconds, zone){ // sunrise sunset
+        r.setUTCSeconds(utcSeconds);
+        let hour = r.getHours();
+        let minute = r.getMinutes();
+        if ( minute <= 9) // not 9 we want 09
+        {
+            minute = "0" + minute;
+        }
+        let nhour = Math.abs(hour + zone);
+        if (nhour >= 12)
+        {
+            nhour = nhour%12;
+        }
+        const ampm = (hour + zone) >=12 ? 'pm' : 'am' && (hour + zone) < 0 ? 'pm' : 'am';
+        return nhour + ":" + minute + " " + ampm;
     },
 };
 document.querySelector('#search').addEventListener("click", function () {
@@ -166,3 +184,4 @@ document.querySelector('.find').addEventListener("input", function () {
 });
 weather.fetchWeather("istanbul","forecast");
 weather.fetchWeather("istanbul","weather");
+
