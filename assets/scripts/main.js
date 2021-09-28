@@ -1,4 +1,5 @@
 var first = true;
+console.log(first);
 let weather = {
     apiKey: "49cc8c821cd2aff9af04c9f98c36eb74",
     fetchWeather: function (city,type) {
@@ -13,7 +14,7 @@ let weather = {
                 if (type == "weather")
                 {
                 this.displayWeather (data)
-                // console.log(data)
+                console.log(data)
                 }
                 else if(type == "forecast")
                 this.displayForecast (data)
@@ -50,25 +51,24 @@ let weather = {
         {
             document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1565036045177-025ab34fb5b3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8SXN0YW5idWx8fHx8fHwxNjMyNDY4MzMx&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920')";
         }
-        var zone = (timezone - 10800)/3600;
+        const zone = (timezone - 10800)/3600;
 
         var r = new Date(0); 
         var s = new Date(0); //ilk utc r değerine ekliyor
 
         document.getElementById('sunrise').textContent = this.utc(r, sunrise, zone);
         document.getElementById('sunset').textContent = this.utc(s, sunset, zone);
-
         var date = new Date();
         let hour3 = date.getHours();
         let minutes3 = date.getMinutes();
         this.mycalc(minutes3,hour3,zone);
-
-        setInterval(() => { // her saniye saatin güncelleşmesini sağlamaktadır.
-            date = new Date();
-            hour3 = date.getHours();
-            minutes3 = date.getMinutes();
-            this.mycalc(minutes3,hour3,zone);
-        }, 1000);
+        // setInterval(() => { // only turkey
+        //     date = new Date();
+        //     hour3 = date.getHours();
+        //     minutes3 = date.getMinutes();
+        //     console.log("t" + zone);
+        //     this.mycalc(minutes3,hour3,zone);
+        // }, 1000);
         
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);
@@ -137,11 +137,11 @@ let weather = {
         }
     },
     search: function (value) {
+        first = false;
         this.fetchWeather(value,
         "forecast");
         this.fetchWeather(value,
         "weather");
-        first = false;
         document.querySelector('.find').value=value;// açılır listeden gelen verilerin yazılmasını sağlıyor.
     },
     mycalc: function(minute, hour, zone) { // time
@@ -155,6 +155,10 @@ let weather = {
             nhour = nhour%12;
         }
         const ampm = (hour + zone) >=12 ? 'PM' : 'AM' && (hour + zone) < 0 ? 'PM' : 'AM';
+        if ( nhour <= 9) // not 9 we want 09
+        {
+            nhour = "0" + nhour;
+        }
         document.querySelector('#time').innerHTML =`
         ${nhour + ":" + minute}
         <span id="am-pm">${ampm}</span>`
@@ -173,6 +177,10 @@ let weather = {
             nhour = nhour%12;
         }
         const ampm = (hour + zone) >=12 ? 'pm' : 'am' && (hour + zone) < 0 ? 'pm' : 'am';
+        if ( nhour <= 9) // not 9 we want 09
+        {
+            nhour = "0" + nhour;
+        }
         return nhour + ":" + minute + " " + ampm;
     },
 };
@@ -188,7 +196,8 @@ document.querySelector('.find').addEventListener("input", function () {
     // console.log(document.querySelector('.find').value);
     weather.fetchCountry(document.querySelector('.find').value);
 });
-weather.fetchWeather("istanbul","forecast");
-weather.fetchWeather("istanbul","weather");
+    weather.fetchWeather("istanbul","forecast");
+    weather.fetchWeather("istanbul","weather");
+
 
 
