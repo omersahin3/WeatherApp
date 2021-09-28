@@ -1,5 +1,4 @@
 var first = true;
-console.log(first);
 let weather = {
     apiKey: "49cc8c821cd2aff9af04c9f98c36eb74",
     fetchWeather: function (city,type) {
@@ -14,7 +13,7 @@ let weather = {
                 if (type == "weather")
                 {
                 this.displayWeather (data)
-                console.log(data)
+                // console.log(data)
                 }
                 else if(type == "forecast")
                 this.displayForecast (data)
@@ -53,7 +52,7 @@ let weather = {
         }
         const zone = (timezone - 10800)/3600;
 
-        var r = new Date(0); 
+        var r = new Date(0);
         var s = new Date(0); //ilk utc r değerine ekliyor
 
         document.getElementById('sunrise').textContent = this.utc(r, sunrise, zone);
@@ -69,7 +68,7 @@ let weather = {
         //     console.log("t" + zone);
         //     this.mycalc(minutes3,hour3,zone);
         // }, 1000);
-        
+
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);
     },
@@ -80,16 +79,16 @@ let weather = {
         let otherDayForcast = ''
         for(i=0; i<40; i+=8)
         {
-            const{ icon } = data.list[i].weather[0]; 
-            const{ temp } = data.list[i].main; 
+            const{ icon } = data.list[i].weather[0];
+            const{ temp } = data.list[i].main;
             const{ dt_txt } = data.list[i];
 
             let d = String(new Date(dt_txt));
             d=d.slice(0,3);
-            
+
             if(i==0)
             {
-                document.getElementById('current-temp').innerHTML = 
+                document.getElementById('current-temp').innerHTML =
                 `<img src="http://openweathermap.org/img/wn//${icon}@4x.png" alt="weather icon" class="w-icon">
                 <div class="other">
                     <div class="day">${d}</div>
@@ -97,9 +96,9 @@ let weather = {
                     <div class="temp">Day - ${String(temp).slice(0,4)}&#176;C</div>
                 </div>`
             }
-            else 
-            {   
-                otherDayForcast += 
+            else
+            {
+                otherDayForcast +=
                 `<div class="weather-forecast-item">
                     <div class="day">${d}</div>
                     <img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="weather icon" class="w-icon">
@@ -108,7 +107,7 @@ let weather = {
                 </div>`
             }
             document.getElementById('weather-forecast').innerHTML = otherDayForcast;
-            document.querySelector('.main').style.visibility = "visible"; // ilk başta hidden olan şeyi visible 
+            document.querySelector('.main').style.visibility = "visible"; // ilk başta hidden olan şeyi visible
         }
     },
     displayCountry: function(data,query){
