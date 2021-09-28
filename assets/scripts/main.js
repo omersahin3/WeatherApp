@@ -61,7 +61,7 @@ let weather = {
         let hour3 = date.getHours();
         let minutes3 = date.getMinutes();
         this.mycalc(minutes3,hour3,zone);
-        // setInterval(() => { // only turkey
+        // setInterval(() => { // only one country
         //     date = new Date();
         //     hour3 = date.getHours();
         //     minutes3 = date.getMinutes();
