@@ -13,7 +13,7 @@ let weather = {
                 if (type == "weather")
                 {
                 this.displayWeather (data)
-                // console.log(data)
+                console.log(data)
                 }
                 else if(type == "forecast")
                 this.displayForecast (data)
@@ -46,6 +46,8 @@ let weather = {
         document.getElementById('wind').innerText = speed + " km/h";
         document.body.style.backgroundImage =
         "url('https://source.unsplash.com/1920x1080/?" + name + "')";
+
+
         if(first == true) // default background
         {
             document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1565036045177-025ab34fb5b3?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8SXN0YW5idWx8fHx8fHwxNjMyNDY4MzMx&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920')";
@@ -61,13 +63,13 @@ let weather = {
         let hour3 = date.getHours();
         let minutes3 = date.getMinutes();
         this.mycalc(minutes3,hour3,zone);
-        // setInterval(() => { // only one country
-        //     date = new Date();
-        //     hour3 = date.getHours();
-        //     minutes3 = date.getMinutes();
-        //     console.log("t" + zone);
-        //     this.mycalc(minutes3,hour3,zone);
-        // }, 1000);
+        setInterval(() => { // only one country
+            date = new Date();
+            hour3 = date.getHours();
+            minutes3 = date.getMinutes();
+            console.log("t" + zone);
+            this.mycalc(minutes3,hour3,zone);
+        }, 1000);
 
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);

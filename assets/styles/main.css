@@ -142,6 +142,7 @@ body {
 }
 #rlist li{
     padding: 0.4em 1em;
+    cursor : default;
 }
 #rlist li:last-child:hover{
     border-radius: 0px 0px 25px 25px;
@@ -174,6 +175,9 @@ body {
     background-color: #3c3c44;
     border-radius: 50px;
     text-align: center;
+}
+.future-forecast .today img{
+    user-select: none;
 }
 .future-forecast .today .temp {
     font-size: 18px;
