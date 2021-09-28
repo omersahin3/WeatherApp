@@ -61,15 +61,21 @@ let weather = {
         var date = new Date();
         let hour3 = date.getHours();
         let minutes3 = date.getMinutes();
-
         this.mycalc(minutes3,hour3,zone);
 
+        setInterval(() => { // her saniye saatin güncelleşmesini sağlamaktadır.
+            date = new Date();
+            hour3 = date.getHours();
+            minutes3 = date.getMinutes();
+            this.mycalc(minutes3,hour3,zone);
+        }, 1000);
+        
         var options = { weekday: 'long', day: 'numeric' , month: 'short',};
         document.querySelector('#date').textContent = r.toLocaleString("en-US", options);
     },
     displayForecast: function(data) {
-        const{ icon } = data.list[0].weather[0];
-        const{ temp } = data.list[0].main;
+        // const{ icon } = data.list[0].weather[0];
+        // const{ temp } = data.list[0].main;
         // console.log(icon,temp);
         let otherDayForcast = ''
         for(i=0; i<40; i+=8)
@@ -109,7 +115,7 @@ let weather = {
         const q = String(query).toLowerCase();
         const querylist = [];
 
-        console.log(data[227]['states']);
+        // console.log(data[227]['states']);
         const states = data[227]['states'];
 
         let querylistHtml = '';
@@ -179,9 +185,10 @@ document.querySelector('.find').addEventListener("keyup", function(event) {
     }
 });
 document.querySelector('.find').addEventListener("input", function () {
-    console.log(document.querySelector('.find').value);
+    // console.log(document.querySelector('.find').value);
     weather.fetchCountry(document.querySelector('.find').value);
 });
 weather.fetchWeather("istanbul","forecast");
 weather.fetchWeather("istanbul","weather");
+
 
